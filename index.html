@@ -59,11 +59,10 @@
         font-size: 18px;
         line-height: 24px;
       }
-      ol 
-       li {
-        padding:1.5%;
-        font-size:16px;
-        line-height:22px;
+      .how-to-use {
+        text-align: center;
+        font-size:36px;
+        line-height:42px;
        }
       
 
@@ -141,7 +140,7 @@
       <!-- www.google.com/fonts/specimen/Ubuntu#pairings -->
       <div class="row-fluid heading">
         <div class="span12">
-          <h1>Sync</h1>
+          <h1>Conext</h1>
         </div>
       </div> 
       <div class="row-fluid subheading">
@@ -153,7 +152,7 @@
       </div>
       <div class="row-fluid pitch">
         <div class="span5 offset1 video">
-          <img class="img-polaroid" src="http://placehold.it/480x300">
+          <img class="img-polaroid" src="http://i.imgur.com/UuOAH8A.jpg" alt="http://commons.wikimedia.org/wiki/File:Teens_sharing_a_song.jpg">
         </div>
 
         <!-- We define a new 'actions' div to contain statistics, order, and share buttons.-->
@@ -170,7 +169,7 @@
               </div>
               <div class="span4">
                 <div class="linediv-c">
-                  <h3>$500</h3> <p>of $10,000</p>
+                  <h3>$1000</h3> <p>of $10,000</p>
                 </div>
               </div>
               <div class="span4">
@@ -184,8 +183,8 @@
             <!-- Bootstrap progress bar -->
             <!-- http://twitter.github.io/bootstrap/components.html#progress -->
             <div class="thermometer progress active">
-              <div class="bar bar-success" style="width: 5%;">5%</div>
-              <div class="bar bar-warning" style="width: 95%;"></div>
+              <div class="bar bar-success" style="width: 10%;">10%</div>
+              <div class="bar bar-warning" style="width: 90%;"></div>
             </div>
           </div>
           <div class="span6 offset3 order">
@@ -196,8 +195,12 @@
           <div class="span8 offset2 social">
             <!-- Social buttons are not included in default Bootstrap. -->
             <!-- See: http://noizwaves.github.io/bootstrap-social-buttons -->
-            <button class="btn btn-twitter"><i class="icon-twitter"></i> | Twitter</button>
-            <button class="btn btn-facebook"><i class="icon-facebook"></i> | Facebook</button>
+            <a href="https://twitter.com/toonhao">
+              <button class="btn btn-twitter"><i class="icon-twitter"></i> | Twitter</button>
+            </a>
+            <a href="https://www.facebook.com/antonioguilherme.ferreiraviggiano">
+              button class="btn btn-facebook"><i class="icon-facebook"></i> | Facebook</button>
+            </a>
           </div>
         </div>
       </div>
@@ -208,31 +211,32 @@
       <!-- http://placehold.it -->
       <div class="row-fluid section1">
         <div class="span5 offset1 asset">
-          <img class="img-polaroid" src="http://placehold.it/480x300">
+          <img class="img-polaroid" src="http://i.imgur.com/kfjqlLi.jpg">
         </div>
         <div class="span5 copy">
-          <p>
-            Never fight again over which song is going to play next.
-          </p>
-          <ol>
-            <li>Scan your phone or computer and let <strong>Sync</strong> know what songs you like.</li>
-            <li>Your friends log into the same web page and <strong>Sync</strong> their favourite musics.</li>
-	    <li><strong>Sync</strong> find the most adapted playlist to your group and create it instantly in your preferred streaming service.</li>      
-	  </ol>
-	  <p>
-	    No downloads, no registration required.
-	  </p>
+            <p class="how-to-use">Scan your phone or computer and let <strong>Conext</strong> know what songs you like.</p>     
         </div>
       </div>
 
       <div class="row-fluid section2">
         <div class="span5 offset1 copy copy-right">
-          <p>
-            
-          </p>
+          <ol>
+            <p class="how-to-use">Your friends log into the same web page and sync their favourite musics.</p>
+          </ol>
         </div>
         <div class="span5 asset">
-          <img class="img-polaroid" src="http://i.imgur.com/UuOAH8A.jpg" alt="http://commons.wikimedia.org/wiki/File:Teens_sharing_a_song.jpg">
+          <img class="img-polaroid" src="http://i.imgur.com/OSJAlL0.jpg">
+        </div>
+      </div>
+
+      <div class="row-fluid section1">
+        <div class="span5 offset1 asset">
+          <img class="img-polaroid" src="http://i.imgur.com/21O50CP.jpg">
+        </div>
+        <div class="span5 copy">
+          <ol>
+            <p class="how-to-use"><strong>Conext</strong> find the most adapted playlist to your group and create it instantly in your preferred streaming service.</p>      
+          </ol>
         </div>
       </div>
 
@@ -247,12 +251,12 @@
                 <div class="accordion-heading">
                   <a class="accordion-toggle" data-toggle="collapse"
                      data-parent="#accordion2" href="#collapseOne">
-                    What does FAQ stand for?
+                    What do I have to download? How do I register?
                   </a>
                 </div>
                 <div id="collapseOne" class="accordion-body collapse">
                   <div class="accordion-inner">
-                    Frequently Asked Question.
+                    <strong>Conext</strong> is great because there are <strong>no downloads</strong> and <strong>no registration</strong> required. This way you can create your group's playlist whithout wasting your time.  
                   </div>
                 </div>
               </div>
@@ -260,12 +264,26 @@
                 <div class="accordion-heading">
                   <a class="accordion-toggle" data-toggle="collapse"
                      data-parent="#accordion2" href="#collapseTwo">
-                    What's a Frequently Asked Question?
+                    How does <strong>Conext</strong> choose the best songs? Are there different types of classification?
                   </a>
                 </div>
                 <div id="collapseTwo" class="accordion-body collapse">
                   <div class="accordion-inner">
-                    A question which is commonly asked by users.
+                    Several criteria can be applied to match your group's playlist. By default, <strong>Conext</strong> choose the most listened songs from all participants.
+                    Other modes can be applied, such as "Similar songs", "Filter by gender" or "Discovery", which presents you new songs that match your group's taste.
+                  </div>
+                </div>
+              </div>
+              <div class="accordion-group">
+                <div class="accordion-heading">
+                  <a class="accordion-toggle" data-toggle="collapse"
+                     data-parent="#accordion2" href="#collapseThree">
+                    When will the new modes be presented?
+                  </a>
+                </div>
+                <div id="collapseThree" class="accordion-body collapse">
+                  <div class="accordion-inner">
+                    "Similar songs", "Filter by gender" and "Discovery" will be launched shortly after the release of the Bitstarter.
                   </div>
                 </div>
               </div>
