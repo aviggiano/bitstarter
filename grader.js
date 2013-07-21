@@ -44,8 +44,13 @@ var loadChecks = function(checksfile) {
         return JSON.parse(fs.readFileSync(checksfile));
     };
 
-var checkHtmlFile = function(htmlfile, checksfile) {
-        $ = cheerioHtmlFile(htmlfile);
+var checkHtmlFile = function(htmlfile, checksfile, url) {
+        if (htmlfile == null) {
+			getFromUrl(url);
+			htmlfile = 'dl-index.html'
+		}
+			$ = cheerioHtmlFile(htmlfile);
+		
         var checks = loadChecks(checksfile).sort();
         var out = {};
         for(var ii in checks) {
@@ -67,11 +72,14 @@ var getFromUrl = function(url) {
 
     rest.get(url).on('complete', function(result) {
 	  if (result instanceof Error) {
-	          sys.puts('Error: ' + result.message);
-	          this.retry(5000); // try again after 5 sec
-	        } else {
-		        fs.writeFileSync("dl-index.html", result);
-		      }
+		  sys.puts('ErrorLOLL: ' + result.message);
+		  this.retry(5000); // try again after 5 sec
+	} else {
+			fs.writeFile('dl-index.html', result, function(err) {
+				if (err) throw err;
+				console.log('It\'s saved!');
+			});
+	  }
 	});
 }
 
@@ -79,15 +87,12 @@ if(require.main == module) {
         program
             .option('-c, --checks <check_file>', 'Path to checks.json', clone(assertFileExists), CHECKSFILE_DEFAULT)
             .option('-f, --file <html_file>', 'Path to index.html', clone(assertFileExists), HTMLFILE_DEFAULT)
-	    .option('-u, --url <url>', 'Path to url')
+			.option('-u, --url <url>', 'Path to url')
             .parse(process.argv);
-if (program.url != null) {
-getFromUrl(program.url);
-program.file = "dl-index.html";
-}
-        var checkJson = checkHtmlFile(program.file, program.checks);
+        var checkJson = checkHtmlFile(program.file, program.checks, program.url);
         var outJson = JSON.stringify(checkJson, null, 4);
         console.log(outJson);
+
     } else {
 	    exports.checkHtmlFile = checkHtmlFile;
 	}
