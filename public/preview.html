@@ -123,7 +123,7 @@
           <div class="nav-collapse collapse">
             <ul class="nav">
               <li><a href="index.html">Home</a></li>
-              <li class="active"><a href="#">Try</a></li>
+              <li class="active"><a href="#">Preview</a></li>
               <li><a href="#about">About</a></li>
               <li><a href="#contact">Contact</a></li>
             </ul>
@@ -151,94 +151,27 @@
           <p class="lead">Create the ideal playlist: for you and for your friends.</p>
         </div>
       </div>
+
       <div class="row-fluid pitch">
-        <div class="span5 offset1 video">
-          <img class="img-polaroid" src="http://i.imgur.com/UuOAH8A.jpg" alt="http://commons.wikimedia.org/wiki/File:Teens_sharing_a_song.jpg">
-        </div>
-
-        <!-- We define a new 'actions' div to contain statistics, order, and share buttons.-->
-        <div class="span5 actions">
-          <div class="span8 offset2">
-            <div class="statistics">
-              <div class="span4">
-                <!-- linediv-l and linediv-r give dividing lines that look
-                different in horizontal and vertical layouts, illustrating
-                media queries. -->
-                <div class="linediv-l">
-                <h3>10</h3> <p>backers</p>
-                </div>
-              </div>
-              <div class="span4">
-                <div class="linediv-c">
-                  <h3>$1000</h3> <p>of $10,000</p>
-                </div>
-              </div>
-              <div class="span4">
-                <div class="linediv-r">
-                <h3>30</h3> <p>days left</p>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="span10 offset1">
-            <!-- Bootstrap progress bar -->
-            <!-- http://twitter.github.io/bootstrap/components.html#progress -->
-            <div class="thermometer progress active">
-              <div class="bar bar-success" style="width: 10%;">10%</div>
-              <div class="bar bar-warning" style="width: 90%;"></div>
-            </div>
-          </div>
-          <div class="span6 offset3 order">
-            <!-- Standard Bootstrap button. -->
-            <!-- http://twitter.github.io/bootstrap/base-css.html#buttons -->
-            <button class="btn btn-success btn-large">Try for free</button>
-          </div>
-          <div class="span8 offset2 social">
-            <!-- Social buttons are not included in default Bootstrap. -->
-            <!-- See: http://noizwaves.github.io/bootstrap-social-buttons -->
-            <a href="https://twitter.com/toonhao">
-              <button class="btn btn-twitter"><i class="icon-twitter"></i> | Twitter</button>
-            </a>
-            <a href="https://www.facebook.com/antonioguilherme.ferreiraviggiano">
-              <button class="btn btn-facebook"><i class="icon-facebook"></i> | Facebook</button>
-            </a>
-          </div>
-        </div>
-      </div>
-
-      <!-- Beyond this part the marketing copy begins. -->
-      <!-- https://developer.mozilla.org/en-US/docs/Web/CSS/text-align -->
-      <!-- http://twitter.github.io/bootstrap/base-css.html#images -->
-      <!-- http://placehold.it -->
-      <div class="row-fluid section1">
-        <div class="span5 offset1 asset">
-          <img class="img-polaroid" src="http://i.imgur.com/kfjqlLi.jpg">
-        </div>
-        <div class="span5 copy">
-            <p class="how-to-use">Scan your phone or computer and let <strong>Conext</strong> know what songs you like.</p>     
-        </div>
-      </div>
-
-      <div class="row-fluid section2">
-        <div class="span5 offset1 copy copy-right">
-          <ol>
-            <p class="how-to-use">Your friends log into the same web page and sync their favourite musics.</p>
-          </ol>
-        </div>
-        <div class="span5 asset">
-          <img class="img-polaroid" src="http://i.imgur.com/OSJAlL0.jpg">
-        </div>
-      </div>
-
-      <div class="row-fluid section1">
-        <div class="span5 offset1 asset">
-          <img class="img-polaroid" src="http://i.imgur.com/21O50CP.jpg">
-        </div>
-        <div class="span5 copy">
-          <ol>
-            <p class="how-to-use"><strong>Conext</strong> find the most adapted playlist to your group and create it instantly in your preferred streaming service.</p>      
-          </ol>
-        </div>
+	<div class="span4 offset4">
+	  <input type="file" id="files" name="files[]" multiple />
+	  <output id="list"></output>
+	  
+	  <script>
+	    function handleFileSelect(evt) {
+            var files = evt.target.files; // FileList object
+	    
+            // files is a FileList of File objects. List some properties.
+            var output = [];
+            for (var i = 0, f; f = files[i]; i++) {
+	    output.push('<li><strong>', escape(f.name), '</strong> (', f.type || 'n/a', ') ', f.type === 'image/jpeg', '</li>');
+            }
+            document.getElementById('list').innerHTML = '<ol>' + output.join('') + '</ol>';
+	    }
+	    
+	    document.getElementById('files').addEventListener('change', handleFileSelect, false);
+	  </script>
+	</div>
       </div>
 
       <!-- For the FAQ, we introduce a little bit of JS, using the accordion. -->
@@ -304,29 +237,6 @@
             put at the bottom of the page.</p>
         </div>
       </div>
-    </div>
-
-    <div>
-      <input type="file" id="files" name="files[]" multiple />
-      <output id="list"></output>
-
-<script>
-    function handleFileSelect(evt) {
-        var files = evt.target.files; // FileList object
-
-        // files is a FileList of File objects. List some properties.
-        var output = [];
-        for (var i = 0, f; f = files[i]; i++) {
-          output.push('<li><strong>', escape(f.name), '</strong> (', f.type || 'n/a', ') - ',
-                      f.size, ' bytes, last modified: ',
-                      f.lastModifiedDate ? f.lastModifiedDate.toLocaleDateString() : 'n/a',
-                      '</li>');
-        }
-        document.getElementById('list').innerHTML = '<ul>' + output.join('') + '</ul>';
-      }
-
-    document.getElementById('files').addEventListener('change', handleFileSelect, false);
-</script>
     </div>
 
   </body>
