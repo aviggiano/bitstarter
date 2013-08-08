@@ -7,6 +7,8 @@ app.get('/', function(request, response) {
   response.send(buf.toString());
 });
 
+app.get('/preview', function (req, res) {     res.render('preview.html'); });
+
 var port = process.env.PORT || 8080;
 app.listen(port, function() {
   console.log("Listening on " + port);
