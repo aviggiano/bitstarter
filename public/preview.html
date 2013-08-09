@@ -159,15 +159,29 @@
 	  
 	  <script>
 	    function handleFileSelect(evt) {
-              var files = evt.target.files; // FileList object
+        var files = evt.target.files; // FileList object
 
-              // files is a FileList of File objects. List some properties.
-              var output = [];
-              for (var i = 0, f; f = files[i]; i++) {
-                output.push('<li><strong>', escape(f.name), '</strong> (', f.type || 'n/a', ') ', isAudio(f), '</li>');
-              }
-              document.getElementById('list').innerHTML = '<ol>' + output.join('') + '</ol>';
+        // files is a FileList of File objects. List some properties.
+        var output = [];
+        for (var i = 0, f; f = files[i]; i++) {
+	      if (isAudio(f))
+          output.push('<li><strong>', escape(f.name), '</strong> (', f.type || 'n/a', ')</li>');
+        
+        }
+        
+        function httpGet(theUrl) {
+          var xmlHttp = null;
+
+          xmlHttp = new XMLHttpRequest();
+          xmlHttp.open( "GET", theUrl, false );
+          xmlHttp.send( null );
+          return xmlHttp.responseText;
+        }
+        
+        document.getElementById('list').innerHTML = '<ol>' + output.join('') + '</ol>';
+        document.getElementById('list').innerHTML = '<ol>' + httpGet('http://www.google.com') + '</ol>';
 	    }
+      
 
 	    function isAudio(f) {
   	      var audioTypes = ['audio/mp3', 'audio/ogg'];
