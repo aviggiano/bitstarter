@@ -159,17 +159,31 @@
 	  
 	  <script>
 	    function handleFileSelect(evt) {
-            var files = evt.target.files; // FileList object
-	    var audioType = 'audio/mp3';
+              var files = evt.target.files; // FileList object
 
-            // files is a FileList of File objects. List some properties.
-            var output = [];
-            for (var i = 0, f; f = files[i]; i++) {
-	    output.push('<li><strong>', escape(f.name), '</strong> (', f.type || 'n/a', ') ', f.type === audioType, '</li>');
-            }
-            document.getElementById('list').innerHTML = '<ol>' + output.join('') + '</ol>';
+              // files is a FileList of File objects. List some properties.
+              var output = [];
+              for (var i = 0, f; f = files[i]; i++) {
+                output.push('<li><strong>', escape(f.name), '</strong> (', f.type || 'n/a', ') ', isAudio(f), '</li>');
+              }
+              document.getElementById('list').innerHTML = '<ol>' + output.join('') + '</ol>';
 	    }
-	    
+
+	    function isAudio(f) {
+  	      var audioTypes = ['audio/mp3', 'audio/ogg'];
+	      return audioTypes.contains(f.type);
+	    }
+
+	    Array.prototype.contains = function(obj) {
+	      var i = this.length;     
+	      while (i--) {
+                if (this[i] === obj) {
+                  return true;         
+	        }    
+	      }    
+	      return false; 
+	    }
+
 	    document.getElementById('files').addEventListener('change', handleFileSelect, false);
 	  </script>
 	</div>
