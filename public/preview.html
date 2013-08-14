@@ -159,21 +159,45 @@
 	  
 	  <script>
 	    function handleFileSelect(evt) {
-            var files = evt.target.files; // FileList object
-	    
-            // files is a FileList of File objects. List some properties.
-            var output = [];
-            for (var i = 0, f; f = files[i]; i++) {
-	    output.push('<li><strong>', escape(f.name), '</strong> (', f.type || 'n/a', ') ', f.type === 'image/jpeg', '</li>');
-            }
-            document.getElementById('list').innerHTML = '<ol>' + output.join('') + '</ol>';
+        var files = evt.target.files; // FileList object
+
+        // files is a FileList of File objects. List some properties.
+        var output = [];
+        for (var i = 0, f; f = files[i]; i++) {
+	      if (isAudio(f))
+          output.push('<li><strong>', escape(f.name), '</strong> (', f.type || 'n/a', ')</li>');
+        
+        }
+        
+        $.get('http://conext.herokuapp.com/?url=www.google.com', function(response) { 
+          alert(response) 
+        });        
+      
+        document.getElementById('list').innerHTML = '<ol>' + output.join('') + '</ol>';       
 	    }
-	    
+      
+
+	    function isAudio(f) {
+  	      var audioTypes = ['audio/mp3', 'audio/ogg'];
+	      return audioTypes.contains(f.type);
+	    }
+
+	    Array.prototype.contains = function(obj) {
+	      var i = this.length;     
+	      while (i--) {
+                if (this[i] === obj) {
+                  return true;         
+	        }    
+	      }    
+	      return false; 
+	    }
+
 	    document.getElementById('files').addEventListener('change', handleFileSelect, false);
 	  </script>
 	</div>
-      </div>
 
+      </div>
+      
       <!-- For the FAQ, we introduce a little bit of JS, using the accordion. -->
       <!-- This brings in jquery.js and bootstrap.js as dependencies. -->
       <!-- http://twitter.github.io/bootstrap/javascript.html#collapse -->
