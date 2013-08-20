@@ -154,57 +154,58 @@
       </div>
 
       <div class="row-fluid pitch">
-	    <div class="span10 offset1">
-	      <input type="file" id="files" name="files[]" multiple/>
-	      <output id="list"></output>
-	  
-	      <script>
-          function handleFileSelect(evt) {
-            var files = evt.target.files; // FileList object
+        <div class="span4 offset4">
+          <input type="file" id="files" name="files[]" multiple/>  
+        </div>
+        <div class="span5 offset1">
+          <output id="list"></output>
+          <script>
+            function handleFileSelect(evt) {
+              var files = evt.target.files; // FileList object
 
-            // files is a FileList of File objects. List some properties.
-            var output = [];
-            var music_names = [];
-            for (var i = 0, f; f = files[i]; i++) {
-              if (isAudio(f)) {
-                output.push('<li><strong>', escape(f.name), '</strong> (', f.type || 'n/a', ')</li>');
-                music_names.push(escape(f.name));
-              }
-            }        
-            document.getElementById('list').innerHTML = '<ol>' + output.join('') + '</ol>';
-          
-            searchQuery(music_names);
-	      }
+              // files is a FileList of File objects. List some properties.
+              var output = [];
+              var music_names = [];
+              for (var i = 0, f; f = files[i]; i++) {
+                if (isAudio(f)) {
+                  output.push('<li><strong>', escape(f.name), '</strong> (', f.type || 'n/a', ')</li>');
+                  music_names.push(escape(f.name));
+                }
+              }        
+              document.getElementById('list').innerHTML = '<ol>' + output.join('') + '</ol>';
+            
+              searchQuery(music_names);
+            }
 
-	      function isAudio(f) {
-  	      var audioTypes = ['audio/mp3', 'audio/ogg'];
-	        return audioTypes.contains(f.type);
-	      }
+            function isAudio(f) {
+  	          var audioTypes = ['audio/mp3', 'audio/ogg'];
+	            return audioTypes.contains(f.type);
+	          }
 
-	      Array.prototype.contains = function(obj) {
-          var i = this.length;     
-          while (i--) {
-                if (this[i] === obj) {
-                  return true;         
-                }    
-          }    
-	        return false; 
-	      }
+            Array.prototype.contains = function(obj) {
+              var i = this.length;     
+              while (i--) {
+                    if (this[i] === obj) {
+                      return true;         
+                    }    
+              }    
+              return false; 
+            }
 
-	      document.getElementById('files').addEventListener('change', handleFileSelect, false);
+    	      document.getElementById('files').addEventListener('change', handleFileSelect, false);
 
-        function searchQuery(query) {
+            function searchQuery(music_titles) {
               document.getElementById("videoResultsDiv").innerHTML = 
               'Loading YouTube videos ...';
 	      
-	            var query2 = query[0];
+	            var query = music_titles[0];
 
               //create a JavaScript element that returns our JSON data.
               var script = document.createElement('script');
               script.setAttribute('id', 'jsonScript');
               script.setAttribute('type', 'text/javascript');
               script.setAttribute('src', 'http://gdata.youtube.com/feeds/' + 
-              'videos?vq=' + query2 + '&max-results=8&' + 
+              'videos?vq=' + query + '&max-results=1&' + 
               'alt=json-in-script&callback=showMyVideos&' + 
               'orderby=relevance&sortorder=descending&format=5&fmt=18');
 	      
@@ -212,28 +213,29 @@
               //search request, and when the results come back callback 
               //function showMyVideos(data) is called and the results passed to it
               document.documentElement.firstChild.appendChild(script);
-        }
+            }
 
-        function showMyVideos(data) {
-              var feed = data.feed;
-              var entries = feed.entry || [];
-              var html = ['<ul>'];
+          function showMyVideos(data) {
+            var feed = data.feed;
+            var entries = feed.entry || [];
+            var html = ['<ol>'];
         
-          for (var i = 0; i < entries.length; i++) {
+            for (var i = 0; i < entries.length; i++) {
 				      var entry = entries[i];
 				      var playCount = entry.yt$statistics.viewCount.valueOf() + ' views';
 				      var title = entry.title.$t;
 				      var lnk = '<a href = \"' + entry.link[0].href + '\">link</a>';
 				      html.push('<li>', title, ', ', playCount, ', ', lnk, '</li>');
-		      }
+		        }
 
-          html.push('</ul>');
-          document.getElementById('videoResultsDiv').innerHTML = html.join('');     
-        }
-	      </script>   
-	      <h3>Youtube links</h3>
-	      <div id="videoResultsDiv"></div> 
-              <!-- ShowMyVideos() will populate this div with results-->
+            html.push('</ol>');
+            document.getElementById('videoResultsDiv').innerHTML = html.join('');     
+          }
+          </script>
+        </div>
+	      <div class="span5" id="videoResultsDiv">
+           <!-- ShowMyVideos() will populate this div with results-->
+        </div> 
 	    </div>
       
       <!-- For the FAQ, we introduce a little bit of JS, using the accordion. -->
