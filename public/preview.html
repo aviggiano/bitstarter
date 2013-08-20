@@ -155,7 +155,7 @@
 
       <div class="row-fluid pitch">
 	    <div class="span10 offset1">
-	      <input type="file" id="files" name="files[]" multiple />
+	      <input type="file" id="files" name="files[]" multiple onclick="searchClicked()"/>
 	      <output id="list"></output>
 	  
 	      <script>
@@ -228,9 +228,6 @@
 				      document.getElementById('videoResultsDiv').innerHTML = html.join('');
 				      }
 	      </script>   
-	      <p>
-		<input name="searchButton" type="submit" value="Search for eminem we made you" onclick="searchClicked()"/>
-	      </p>
 	      <h3>Youtube links</h3>
 	      <div id="videoResultsDiv"></div> 
               <!-- ShowMyVideos() will populate this div with results-->
