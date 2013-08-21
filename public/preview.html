@@ -168,15 +168,26 @@
               var music_names = [];
               for (var i = 0, f; f = files[i]; i++) {
                 if (isAudio(f)) {
-                  output.push('<li><strong>', escape(f.name), '</strong> (', f.type || 'n/a', ')</li>');
-                  music_names.push(escape(f.name));
+	          /* TODO: replace '_' for ' ' and '.filetype' for '' */ 
+
+                  output.push('<li><strong>', f.name, '</strong> (', f.type || 'n/a', ')</li>');
+                  music_names.push(f.name);
+	          console.log(music_names[0]);
                 }
               }        
               document.getElementById('list').innerHTML = '<ol>' + output.join('') + '</ol>';
-            
-              searchQuery(music_names);
+              
+              getAllMusicLinks(music_names);
             }
 
+            function getAllMusicLinks(music_names) {
+	      var i = music_names.length;
+              while (i--) {
+                searchQuery(music_names[i]);
+	      } 
+              document.getElementById('videoResultsDiv').innerHTML = '<ul id="music_list">';
+            }
+            
             function isAudio(f) {
   	          var audioTypes = ['audio/mp3', 'audio/ogg'];
 	            return audioTypes.contains(f.type);
@@ -194,20 +205,18 @@
 
     	      document.getElementById('files').addEventListener('change', handleFileSelect, false);
 
-            function searchQuery(music_titles) {
+            function searchQuery(music) {
               document.getElementById("videoResultsDiv").innerHTML = 
               'Loading YouTube videos ...';
 	      
-	            var query = music_titles[0];
-
               //create a JavaScript element that returns our JSON data.
               var script = document.createElement('script');
               script.setAttribute('id', 'jsonScript');
               script.setAttribute('type', 'text/javascript');
               script.setAttribute('src', 'http://gdata.youtube.com/feeds/' + 
-              'videos?vq=' + query + '&max-results=1&' + 
-              'alt=json-in-script&callback=showMyVideos&' + 
-              'orderby=relevance&sortorder=descending&format=5&fmt=18');
+                                  'videos?vq=' + music + '&max-results=1&' + 
+                                  'alt=json-in-script&callback=showMyVideos&format=5&fmt=18'); 
+                                  /*'orderby=relevance&sortorder=descending&format=5&fmt=18');*/
 	      
               //attach script to current page -  this will submit asynchronous
               //search request, and when the results come back callback 
@@ -218,18 +227,18 @@
           function showMyVideos(data) {
             var feed = data.feed;
             var entries = feed.entry || [];
-            var html = ['<ol>'];
-        
-            for (var i = 0; i < entries.length; i++) {
-				      var entry = entries[i];
-				      var playCount = entry.yt$statistics.viewCount.valueOf() + ' views';
-				      var title = entry.title.$t;
-				      var lnk = '<a href = \"' + entry.link[0].href + '\">link</a>';
-				      html.push('<li>', title, ', ', playCount, ', ', lnk, '</li>');
-		        }
-
-            html.push('</ol>');
-            document.getElementById('videoResultsDiv').innerHTML = html.join('');     
+                    
+	    var entry = entries[0];
+	    var title = entry.title.$t;
+	    var a = document.createElement("a");
+	    var a_title = document.createTextNode(title);
+	    a.appendChild(a_title);
+	    a.href = entry.link[0].href;
+	    a.title = title;
+	 
+            var music_li = document.createElement("li");
+	    music_li.appendChild(a);
+            document.getElementById('music_list').appendChild(music_li);
           }
           </script>
         </div>
